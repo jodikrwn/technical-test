@@ -28,8 +28,7 @@ Route::resource(
     EmployeeController::class
 )->only(
     [
-        '
-        index',
+        'index',
         'store',
         'update',
         'destroy'
