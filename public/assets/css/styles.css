@@ -4,3 +4,10 @@ body {
     font-family: "Sora", sans-serif !important;
     /* font-family: 'Inter', sans-serif; */
 }
+
+/*========================= 
+            SWEETALERT
+===========================*/
+.swal2-popup.swal2-modal.swal2-loading {
+    width: auto !important;
+}
