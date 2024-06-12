@@ -34,10 +34,22 @@ Route::resource(
         'destroy'
     ]
 );
+
 Route::post(
     '/employee/search',
     [EmployeeController::class, 'search']
 )->name('employee.search');
+
+Route::get(
+    '/employee/export-template',
+    [EmployeeController::class, 'exportTemplate']
+)->name('employee.export-template');
+
+Route::post(
+    '/employee/import',
+    [EmployeeController::class, 'import']
+)->name('employee.import');
+
 
 // Department
 Route::resource(
@@ -51,10 +63,21 @@ Route::resource(
         'destroy'
     ]
 );
+
 Route::post(
     '/department/search',
     [DepartmentController::class, 'search']
 )->name('department.search');
+
+Route::get(
+    '/department/export-template',
+    [DepartmentController::class, 'exportTemplate']
+)->name('department.export-template');
+
+Route::post(
+    '/department/import',
+    [DepartmentController::class, 'import']
+)->name('department.import');
 
 
 // Designation
@@ -69,7 +92,18 @@ Route::resource(
         'destroy'
     ]
 );
+
 Route::post(
     '/designation/search',
     [DesignationController::class, 'search']
 )->name('designation.search');
+
+Route::get(
+    '/designation/export-template',
+    [DesignationController::class, 'exportTemplate']
+)->name('designation.export-template');
+
+Route::post(
+    '/designation/import',
+    [DesignationController::class, 'import']
+)->name('designation.import');
