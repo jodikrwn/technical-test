@@ -5,16 +5,21 @@
 @endsection
 
 @section('content')
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="relative overflow-x-auto sm:rounded-lg">
         <div
-            class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
-            <div class="flex gap-3">
+            class="flex gap-3 items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
+            <form
+                class="w-full md:w-[350px]"
+                onsubmit="search(event, this);"
+                data-url="{{ route('designation.search') }}"
+            >
+                @csrf
                 <label
-                    for="table-search"
-                    class="sr-only"
+                    for="default-search"
+                    class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
                 >Search</label>
                 <div class="relative">
-                    <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                         <svg
                             class="w-4 h-4 text-gray-500 dark:text-gray-400"
                             aria-hidden="true"
@@ -32,75 +37,18 @@
                         </svg>
                     </div>
                     <input
-                        type="text"
-                        id="table-search-designation"
-                        class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Search for designation"
-                        onkeyup="onKeyup(this.value)"
-                    >
-                </div>
-                <div>
+                        type="search"
+                        id="default-search"
+                        class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Search designation..."
+                        name="keyword"
+                    />
                     <button
-                        id="dropdownActionButton"
-                        data-dropdown-toggle="dropdownAction"
-                        class="h-full inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                        type="button"
-                    >
-                        <span class="sr-only">Action button</span>
-                        Action
-                        <svg
-                            class="w-2.5 h-2.5 ms-2.5"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 10 6"
-                        >
-                            <path
-                                stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="m1 1 4 4 4-4"
-                            />
-                        </svg>
-                    </button>
-                    <!-- Dropdown menu -->
-                    <div
-                        id="dropdownAction"
-                        class="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
-                    >
-                        <ul
-                            class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                            aria-labelledby="dropdownActionButton"
-                        >
-                            <li>
-                                <a
-                                    href="#"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                >Reward</a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                >Promote</a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                >Activate account</a>
-                            </li>
-                        </ul>
-                        <div class="py-1">
-                            <a
-                                href="#"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                            >Delete User</a>
-                        </div>
-                    </div>
+                        type="submit"
+                        class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >Search</button>
                 </div>
-            </div>
+            </form>
             <div class="flex gap-3">
                 <!-- Create Modal -->
                 <button
@@ -374,14 +322,16 @@
 
 @push('scripts')
     <script>
-        function onKeyup(keyword) {
+        function search(event, element) {
+            event.preventDefault();
+            let formData = new FormData(element);
+
             $.ajax({
-                url: "{{ route('designation.search') }}",
+                url: element.getAttribute("data-url"),
                 type: "POST",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    keyword: keyword
-                },
+                data: formData,
+                contentType: false,
+                processData: false,
                 beforeSend: () => {
                     Swal.fire({
                         allowOutsideClick: false,

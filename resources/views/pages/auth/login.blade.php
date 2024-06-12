@@ -85,12 +85,10 @@
                     </form>
                 </div>
             </div>
-            <div class="h-screen col-span-2 md:col-span-1 hidden md:block place-content-center">
-                <img
-                    class="object-cover w-full"
-                    src="assets/images/seatrium-logo.png"
-                    alt="login"
-                />
+            <div class="h-screen bg-[#153A88] col-span-2 md:col-span-1 hidden md:block place-content-center">
+                <div class="text-center text-white md:text-4xl xl:text-5xl font-semibold whitespace-nowrap dark:text-white">
+                    Employee <br> Management <br> System
+                </div>
             </div>
         </div>
     </section>

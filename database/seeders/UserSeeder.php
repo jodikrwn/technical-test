@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
     {
         $admin = User::create([
             'name'      => 'administrator',
-            'email'     => 'admin@test.com',
+            'email'     => 'admin@ems.com',
             'password'  => '123pasword'
         ]);
     }
