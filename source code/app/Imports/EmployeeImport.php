@@ -55,4 +55,23 @@ class EmployeeImport implements ToModel, WithHeadingRow, WithValidation, SkipsOn
             'status'            => 'required|in:Active,Inactive'
         ];
     }
+
+    public function customValidationAttributes()
+    {
+        return [
+            "phone_number"      => 'phone number',
+            "birth_date"        => 'birth date',
+            "join_date"         => 'join date',
+            "department_name"   => 'department name',
+            "designation_name"  => 'designation name'
+        ];
+    }
+
+    public function customValidationMessages()
+    {
+        return [
+            'join_date.date_format'     => 'The :attribute field must match the format DD/MM/YYYY.',
+            'birth_date.date_format'    => 'The :attribute field must match the format DD/MM/YYYY.',
+        ];
+    }
 }
