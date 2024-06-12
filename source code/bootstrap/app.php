@@ -16,6 +16,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission'            => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission'    => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
         ]);
+
+        $middleware->redirectTo(
+            guests: '/',
+            users: '/dashboard'
+        );
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
